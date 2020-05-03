@@ -86,10 +86,8 @@ bool ABattleTank_PlayerController::GetLookVectorHitLocation(FVector LookDirectio
         HitResult,
         TraceStartLocation,
         TraceEndLocation,
-        ECC_Visibility,
-        CollisionQueryParams,
-        CollisionResponseParams
-    )
+        ECollisionChannel::ECC_Visibility,
+        CollisionQueryParams)
     )
     {
         OutHitLocation = HitResult.Location;
