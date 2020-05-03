@@ -6,11 +6,13 @@
 void ABattleTank_PlayerController::BeginPlay()
 {
     Super::BeginPlay();
-    if (!GetControlledTank())
+
+    auto ControlledTank = GetControlledTank();
+    if (!ControlledTank)
     {
         UE_LOG(LogTemp, Error, TEXT("No tank reference found in BattleTank_PlayerController!"));
     }
-    UE_LOG(LogTemp, Warning, TEXT("Tank being possessed: %s"), *GetControlledTank()->GetName());
+    UE_LOG(LogTemp, Warning, TEXT("PlayerController possessing: %s"), *ControlledTank->GetName());
 }
 
 ATank* ABattleTank_PlayerController::GetControlledTank() const
