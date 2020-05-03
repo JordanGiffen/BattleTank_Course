@@ -78,13 +78,14 @@ bool ABattleTank_PlayerController::GetLookVectorHitLocation(FVector LookDirectio
 {
     FHitResult HitResult;
     FVector TraceStartLocation = PlayerCameraManager->GetCameraLocation();
+    FVector TraceEndLocation = TraceStartLocation + LookDirection * LineTraceRange;
     FCollisionQueryParams CollisionQueryParams{FName(""), false, GetPawn()};
     FCollisionResponseParams CollisionResponseParams;
     if (GetWorld()->LineTraceSingleByChannel
     (
         HitResult,
         TraceStartLocation,
-        LookDirection * LineTraceRange,
+        TraceEndLocation,
         ECC_Visibility,
         CollisionQueryParams,
         CollisionResponseParams
