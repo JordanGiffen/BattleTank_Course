@@ -50,8 +50,9 @@ bool ABattleTank_PlayerController::GetSightRayHitLocation(FVector& OutHitLocatio
 
     
     // "De-project" the screen position of the crosshair to the world direction
+    FVector CameraWorldLocation; // To be discarded (Could be used instead of GetCameraLocation)
     FVector LookDirection;
-    if (GetLookDirection(ScreenLocation, LookDirection))
+    if (GetLookDirection(ScreenLocation, LookDirection, CameraWorldLocation))
     {
         // Line-trace along that look direction, and see what we hit (up to max range)
         GetLookVectorHitLocation(LookDirection, OutHitLocation);
@@ -62,9 +63,8 @@ bool ABattleTank_PlayerController::GetSightRayHitLocation(FVector& OutHitLocatio
     return true;
 }
 
-bool ABattleTank_PlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
+bool ABattleTank_PlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection, FVector& CameraWorldLocation) const
 {
-    FVector CameraWorldLocation; // To be discarded
     return DeprojectScreenPositionToWorld
     (
     ScreenLocation.X,
@@ -77,12 +77,13 @@ bool ABattleTank_PlayerController::GetLookDirection(FVector2D ScreenLocation, FV
 bool ABattleTank_PlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& OutHitLocation) const
 {
     FHitResult HitResult;
-    FCollisionQueryParams CollisionQueryParams;
+    FVector TraceStartLocation = PlayerCameraManager->GetCameraLocation();
+    FCollisionQueryParams CollisionQueryParams{FName(""), false, GetPawn()};
     FCollisionResponseParams CollisionResponseParams;
     if (GetWorld()->LineTraceSingleByChannel
     (
         HitResult,
-        LookDirection,
+        TraceStartLocation,
         LookDirection * LineTraceRange,
         ECC_Visibility,
         CollisionQueryParams,
