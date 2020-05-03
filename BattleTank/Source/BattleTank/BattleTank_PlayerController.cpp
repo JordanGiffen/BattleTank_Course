@@ -15,13 +15,36 @@ void ABattleTank_PlayerController::BeginPlay()
     UE_LOG(LogTemp, Warning, TEXT("PlayerController possessing: %s"), *ControlledTank->GetName());
 }
 
+void ABattleTank_PlayerController::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+    
+    AimTowardsCrosshair();
+}
+
 ATank* ABattleTank_PlayerController::GetControlledTank() const
 {
     return Cast<ATank>(GetPawn());
 }
 
-void ABattleTank_PlayerController::Tick(float DeltaTime)
+void ABattleTank_PlayerController::AimTowardsCrosshair()
 {
-    Super::Tick(DeltaTime);
+    if (!GetControlledTank()) { return; }
+
+    FVector HitLocation; // used as an Out parameter
+
+    if (GetSightRayHitLocation(HitLocation)) // HitLocation will be set by function (OUT parameter)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *HitLocation.ToString());
+        // TODO tell controlled tank to aim at this point
+    }
     
+}
+
+bool ABattleTank_PlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const
+{
+    // Get world location through crosshair linetrace
+    // If it hits the landscape
+        // Tell controlled tank to aim at this point
+    return false;
 }
