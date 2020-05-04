@@ -35,8 +35,7 @@ void ABattleTank_PlayerController::AimTowardsCrosshair()
 
     if (GetSightRayHitLocation(HitLocation)) // HitLocation will be set by function (OUT parameter)
     {
-        // UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *HitLocation.ToString());
-        // TODO tell controlled tank to aim at this point
+        GetControlledTank()->AimAt(HitLocation);
     }
     
 }
@@ -57,8 +56,6 @@ bool ABattleTank_PlayerController::GetSightRayHitLocation(FVector& OutHitLocatio
         // Line-trace along that look direction, and see what we hit (up to max range)
         GetLookVectorHitLocation(LookDirection, OutHitLocation);
     }
-
-    UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *OutHitLocation.ToString());
 
     return true;
 }
@@ -93,5 +90,6 @@ bool ABattleTank_PlayerController::GetLookVectorHitLocation(FVector LookDirectio
         OutHitLocation = HitResult.Location;
         return true;
     }
+    OutHitLocation = FVector(0.f, 0.f, 0.f);
     return false;
 }
