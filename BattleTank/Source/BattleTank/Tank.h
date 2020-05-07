@@ -50,7 +50,7 @@ private:
 	float ReloadTimeInSeconds = 3.f;
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
-	TSubclassOf<AProjectile> ProjectileBlueprint;
+	TSubclassOf<AProjectile> ProjectileBlueprint = nullptr;
 
 	// Local barrel reference for spawning projectile
 	UTankBarrel* Barrel = nullptr;
