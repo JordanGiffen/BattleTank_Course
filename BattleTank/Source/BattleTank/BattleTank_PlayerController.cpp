@@ -33,7 +33,6 @@ void ABattleTank_PlayerController::AimTowardsCrosshair()
     {
         GetControlledTank()->AimAt(HitLocation);
     }
-    
 }
 
 bool ABattleTank_PlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const
