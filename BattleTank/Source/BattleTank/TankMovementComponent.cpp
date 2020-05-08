@@ -14,7 +14,6 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
     if (!LeftTrack || !RightTrack) { return; }
     LeftTrack->SetThrottle(Throw);
     RightTrack->SetThrottle(Throw);
-    // TODO prevent double-speed due to dual control use
 }
 
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
@@ -24,11 +23,11 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 
     auto ForwardThrow = FVector::DotProduct(AIForwardIntention, TankForwardDirection);
 
-    auto RightThrow = FVector::CrossProduct(AIForwardIntention, TankForwardDirection);
-
-    IntendTurnRight(RightThrow.Z);
-
-    // IntendMoveForward(ForwardThrow);
+    auto RightThrow = FVector::CrossProduct(AIForwardIntention, TankForwardDirection).Z;
+    
+    IntendMoveForward(ForwardThrow);
+    
+    IntendTurnRight(RightThrow);
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
@@ -37,5 +36,4 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
     if (!LeftTrack || !RightTrack) { return; }
     LeftTrack->SetThrottle(Throw);
     RightTrack->SetThrottle(-Throw);
-    // TODO prevent double-speed due to dual control use
 }
