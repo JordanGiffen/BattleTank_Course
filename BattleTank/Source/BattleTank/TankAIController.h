@@ -24,5 +24,4 @@ protected:
 private:
 	// How close the AI tank can get to the player (in centimeters)
 	float AcceptanceRadius = 3000.f;
-
 };
