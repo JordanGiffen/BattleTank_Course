@@ -15,19 +15,10 @@ ATank::ATank()
 
 }
 
-void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
-{
-	Barrel = BarrelToSet;
-}
-
-void ATank::SetAimingComponentReference(UTankAimingComponent* AimingComponentToSet)
-{
-	TankAimingComponent = AimingComponentToSet;
-}
-
 void ATank::AimAt(FVector HitLocation)
 {
-	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
+	// if (!TankAimingComponent) { return; }
+	// TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 
 void ATank::Fire()

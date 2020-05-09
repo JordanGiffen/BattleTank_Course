@@ -25,13 +25,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Fire();
 
-protected:
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void SetAimingComponentReference(UTankAimingComponent* AimingComponentToSet);
-
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* TankAimingComponent = nullptr;
-
 private:
 	// Sets default values for this pawn's properties
 	ATank();
@@ -45,11 +38,7 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint = nullptr;
 
-	// Local barrel reference for spawning projectile
-	UFUNCTION(BlueprintCallable, Category = Setup)
-    void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	UTankBarrel* Barrel = nullptr;
+	UTankBarrel* Barrel = nullptr; // TODO Remove
 	
 	double LastFireTime = 0.f;
 
