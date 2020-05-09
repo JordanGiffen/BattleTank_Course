@@ -25,6 +25,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Fire();
 
+	UTankAimingComponent* TankAimingComponent = nullptr;
+
 private:
 	// Sets default values for this pawn's properties
 	ATank();
