@@ -2,8 +2,6 @@
 
 #include "Tank.h"
 #include "Engine/World.h"
-#include "TankBarrel.h"
-#include "Projectile.h"
 
 // Sets default values
 ATank::ATank()
