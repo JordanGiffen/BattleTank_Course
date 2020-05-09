@@ -10,7 +10,7 @@ void ABattleTank_PlayerController::BeginPlay()
     Super::BeginPlay();
 
     auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-    if (AimingComponent)
+    if (ensure(AimingComponent))
     {
         FoundAimingComponent(AimingComponent);
     }
@@ -18,8 +18,6 @@ void ABattleTank_PlayerController::BeginPlay()
     {
         UE_LOG(LogTemp, Warning, TEXT("Player controller can't find aiming component at Begin Play"))
     }
-    
-    
 }
 
 void ABattleTank_PlayerController::Tick(float DeltaTime)
@@ -36,11 +34,11 @@ ATank* ABattleTank_PlayerController::GetControlledTank() const
 
 void ABattleTank_PlayerController::AimTowardsCrosshair()
 {
-    if (!GetControlledTank()) { return; }
+    if (!ensure(GetControlledTank())) { return; }
 
     FVector HitLocation; // used as an Out parameter
 
-    if (GetSightRayHitLocation(HitLocation)) // HitLocation will be set by function (OUT parameter)
+    if (ensure(GetSightRayHitLocation(HitLocation))) // HitLocation will be set by function (OUT parameter)
     {
         GetControlledTank()->AimAt(HitLocation);
     }
@@ -57,7 +55,7 @@ bool ABattleTank_PlayerController::GetSightRayHitLocation(FVector& OutHitLocatio
     // "De-project" the screen position of the crosshair to the world direction
     FVector CameraWorldLocation; // To be discarded (Could be used instead of GetCameraLocation)
     FVector LookDirection;
-    if (GetLookDirection(ScreenLocation, LookDirection, CameraWorldLocation))
+    if (ensure(GetLookDirection(ScreenLocation, LookDirection, CameraWorldLocation)))
     {
         // Line-trace along that look direction, and see what we hit (up to max range)
         GetLookVectorHitLocation(LookDirection, OutHitLocation);
