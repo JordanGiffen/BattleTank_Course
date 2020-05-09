@@ -5,6 +5,7 @@
 #include "GameFramework/Controller.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
+// Depends on movement component via pathfinding system
 
 void ATankAIController::BeginPlay()
 {
