@@ -34,6 +34,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	float CrossHairXLocation = .5f;
+	
 	UPROPERTY(EditDefaultsOnly)
 	float CrossHairYLocation = .33333f;
 

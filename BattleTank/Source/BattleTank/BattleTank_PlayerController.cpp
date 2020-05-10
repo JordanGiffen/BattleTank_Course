@@ -8,10 +8,13 @@ void ABattleTank_PlayerController::BeginPlay()
 {
     Super::BeginPlay();
 
-    AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
-    if (ensure(AimingComponent))
+    if (GetPawn())
     {
-        FoundAimingComponent(AimingComponent);
+        AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+        if (ensure(AimingComponent))
+        {
+            FoundAimingComponent(AimingComponent);
+        }
     }
 }
 
