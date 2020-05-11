@@ -31,7 +31,6 @@ void ABattleTank_PlayerController::AimTowardsCrosshair()
 
     FVector HitLocation; // used as an Out parameter
     bool bGotHitLocation = GetSightRayHitLocation(HitLocation);
-    UE_LOG(LogTemp, Warning, TEXT("bGotHitLocation: %i"), bGotHitLocation)
     if (bGotHitLocation) // HitLocation will be set by function (OUT parameter)
     {
         AimingComponent->AimAt(HitLocation);
