@@ -7,6 +7,7 @@
 #include "Projectile.generated.h"
 
 // Forward declaration
+class UStaticMeshComponent;
 class UProjectileMovementComponent;
 class UParticleSystemComponent;
 class URadialForceComponent;
@@ -23,6 +24,9 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float DestroyDelay = 5.f;
 
 public:
 
@@ -45,4 +49,6 @@ private:
 
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+
+	void OnTimerExpire();
 };
