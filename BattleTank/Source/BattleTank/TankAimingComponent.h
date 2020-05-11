@@ -69,6 +69,7 @@ private:
 	
 	double LastFireTime = 0.f;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	int32 AmmoCount = 3;
 
 	FVector LocalAimDirection = FVector(0);
