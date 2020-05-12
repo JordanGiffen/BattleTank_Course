@@ -3,6 +3,7 @@
 #include "BattleTank_PlayerController.h"
 #include "TankAimingComponent.h"
 #include "Engine/World.h"
+#include "Tank.h"
 
 void ABattleTank_PlayerController::BeginPlay()
 {
@@ -16,6 +17,24 @@ void ABattleTank_PlayerController::BeginPlay()
             FoundAimingComponent(AimingComponent);
         }
     }
+}
+
+void ABattleTank_PlayerController::SetPawn(APawn* InPawn)
+{
+    Super::SetPawn(InPawn);
+    if (InPawn)
+    {
+        auto PossessedTank = Cast<ATank>(InPawn);
+        if (!ensure(PossessedTank)) { return; }
+
+        // Subscribe our local method to the tanks death event
+        PossessedTank->OnDeath.AddUniqueDynamic(this, &ABattleTank_PlayerController::OnPossessedTankDeath);
+    }
+}
+
+void ABattleTank_PlayerController::OnPossessedTankDeath()
+{
+    UE_LOG(LogTemp, Warning, TEXT("I'm dead!"))
 }
 
 void ABattleTank_PlayerController::Tick(float DeltaTime)

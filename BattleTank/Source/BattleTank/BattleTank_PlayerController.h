@@ -16,6 +16,10 @@ UCLASS()
 class BATTLETANK_API ABattleTank_PlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+public:
+	UFUNCTION()
+	void OnPossessedTankDeath();
 	
 protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
@@ -24,6 +28,8 @@ protected:
 private:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+
+	virtual void SetPawn(APawn* InPawn) override;
 
 	// Start the tank moving the barrel so that a shot would hit where
 	// the crosshair intersects with the world
